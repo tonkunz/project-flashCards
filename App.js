@@ -1,21 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import {
+  View
+} from 'react-native'
+// Navigation
+import TabNav from './src/components/TabNav'
+// Components
+import FlashCardsStatusBar from './src/components/FlashCardsStatusBar'
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+      <View style={{flex: 1}}>
+        <FlashCardsStatusBar backgroundColor={'#3F51B5'} barStyle='light-content'/>
+        <TabNav />
       </View>
-    );
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

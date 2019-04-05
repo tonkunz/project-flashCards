@@ -1,0 +1,7 @@
+export const indigo1 = '#5C6BC0'
+export const indigo2 = '#3F51B5'
+export const indigo3 = '#283593'
+export const white = '#FFF'
+export const green = '#4CAF50'
+export const red = '#F44336'
+export const yellow = '#FFC107'
