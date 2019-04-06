@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native'
 import { connect } from 'react-redux'
-import { indigo1, white } from '../utils/colors'
+import { indigo1, indigo2, indigo3, white, yellow } from '../utils/colors'
 import { getDecks, removeAllData } from '../utils/api'
 import { receiveDecks } from '../store/actions'
 
@@ -28,9 +28,9 @@ class DeckList extends React.Component {
         {decks && Object.keys(decks).map(deckId => {
           const { title, questions  } = decks[deckId]
           return (
-            <View style={styles.deckItem} key={deckId}>
+            <View style={styles.deckCard} key={deckId}>
               <Text style={styles.deckTitle}>{title}</Text>
-              <Text>{questions.length} Questions</Text>
+              <Text style={styles.deckSubTitle}>{questions.length} Questions</Text>
 
               <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate(
                 'DeckPage',
@@ -55,27 +55,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   deckCard: {
+    flex: 1,
     fontSize: 20,
     padding: 30,
     marginTop: 30,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 8,
+    height:300,
+    width: 350,
+    borderRadius: 3,
+    shadowRadius: 10,
+    shadowOpacity: 1,
+    shadowColor: 'rgba(0,0,0,0.40)',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    backgroundColor: indigo2,
   },
   deckTitle: {
-    fontSize: 35,
-    color: '#3F51B5',
+    fontSize: 40,
+    color: white,
   },
-  //TouchableOpacityStyle
+  deckSubTitle: {
+    fontSize: 20,
+    color: white,
+  },
   btn: {
-    backgroundColor: indigo1,
+    backgroundColor: indigo3,
     padding: 10,
     paddingLeft: 50,
     paddingRight: 50,
-    marginTop: 1,
+    marginTop: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5
+    borderRadius: 5,
   },
   btnText: {
     color: white

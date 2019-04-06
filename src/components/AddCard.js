@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import { addCardToDeck } from '../utils/api'
 import { addCard } from '../store/actions/'
-import {red, green, white, indigo1, indigo3 } from '../utils/colors'
+import {red, green, white, indigo1, indigo2, indigo3 } from '../utils/colors'
 
 class AddCard extends React.Component {
   state = {
@@ -34,13 +34,10 @@ class AddCard extends React.Component {
   }
 
   render () {
-    const deck = this.props.navigation.state.params.deckId
-
+    
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <View >
-          <Text>{deck}</Text>
-
+        <View style={styles.container}>
           <Text style={styles.text}>Insert the question: </Text>
           <TextInput
             style={styles.input}
@@ -48,14 +45,14 @@ class AddCard extends React.Component {
             value={this.state.question}
           />
 
-          <Text style={styles.text}>Insert de propose Answer: </Text>
+          <Text style={styles.text}>Insert the propose answer: </Text>
           <TextInput
             style={styles.input}
             onChangeText={answer => this.setState({answer})}
             value={this.state.answer}
           />
 
-          <Text style={styles.text}>Insert a Correct Answer (true or false):</Text>
+          <Text style={styles.text}>Answer is true or false?</Text>
           <TextInput
             style={styles.input}
             onChangeText={correctAnswer => this.setState({correctAnswer})}
@@ -81,14 +78,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    fontSize: 25,
-    color: indigo3
+    fontSize: 30,
+    color: indigo3,
   },
   btn: {
     backgroundColor: indigo1,
     padding: 10,
-    paddingLeft: 40,
-    paddingRight: 40,
+    paddingLeft: 50,
+    paddingRight: 50,
     marginTop: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -100,7 +97,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   input: {
-    width: 150,
+    width: 200,
     height: 50,
     padding: 8,
     borderWidth: 1,
