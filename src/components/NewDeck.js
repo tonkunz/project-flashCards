@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { indigo1, indigo2, indigo3, white } from '../utils/colors'
+import { connect } from 'react-redux'
 import { saveDeckTitle } from '../utils/api'
 import { addDeck } from '../store/actions'
 
@@ -22,7 +23,31 @@ class NewDeck extends React.Component {
 
   onSubmit = () => {
     const { title } = this.state
-    alert({ title })
+    console.log('On Submit in NewDeck Component:')
+    console.log(title)
+
+    // Saving on Redux Store
+    this.props.dispatch(addDeck({
+      [title]: {
+        title: [title],
+        questions: []
+      }
+    }))
+
+    console.log('Object in dispatch')
+    console.log({
+      [title]: {
+        title,
+        questions: []
+      }
+    })
+
+    // Save on DB
+    saveDeckTitle(title)
+
+    this.setState({title: ''})
+
+    // Route to Especif Deck View
   }
 
   render () {
@@ -43,7 +68,7 @@ class NewDeck extends React.Component {
         <TouchableOpacity
           style={styles.btn}
           title='Submit a new deck'
-          onPress={this.handleSubmit}
+          onPress={this.onSubmit}
         >
           <Text style={styles.btnText}>
             Submit new deck
@@ -88,4 +113,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default connect()(NewDeck)

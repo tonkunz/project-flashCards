@@ -2,20 +2,17 @@ import {
   createAppContainer,
   createMaterialTopTabNavigator
 } from 'react-navigation'
-
-// Components
+import { indigo2, white } from '../utils/colors'
 import NewDeck from './NewDeck'
 import DeckList from './DeckList'
-
-// Icons
-import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 
 const router = {
   DeckList: {
     screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      // tabBarIcon: <Ionicons name="ios-bookmarks" size={30} color={tintColor} />,
+      // tabBarIcon: <MaterialCommunityIcons name="cards" size={30} color={tintColor} />,
     },
   },
   NewDeck: {
@@ -30,12 +27,12 @@ const router = {
 const navigationOptions = {
   tabBarOptions: {
     // showIcon: true,
-    activeTintColor: '#FFF',
+    activeTintColor: white,
     style: {
       padding: 10,
       height: 'auto',
       fontSize: 18,
-      backgroundColor: '#3F51B5',
+      backgroundColor: indigo2,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
