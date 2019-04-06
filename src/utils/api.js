@@ -6,7 +6,6 @@
   - addCardToDeck: dado dois argumentos, title e card, ele adiciona o cartão à
     lista de perguntas ao baralho com o título associado
 */
-
 import { AsyncStorage } from 'react-native'
 
 export const FLASHCARD_STORAGE_KEY = 'Flashcards:data'
@@ -58,7 +57,7 @@ export function getInitialData () {
   return defaultData
 }
 
-export function getDecks () {
+export function getDecks (deck) {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
     .then(results => {
       if (results === null) {
@@ -76,4 +75,19 @@ export function saveDeckTitle (title) {
       title,
     }
   }))
+}
+
+export function removeAllData (){
+  AsyncStorage.clear(FLASHCARD_STORAGE_KEY, (err) => {
+    console.log('Error on delete')
+  })
+}
+
+// Reset all data, just for tests
+export async function clearStorage() {
+  try {
+    await AsyncStorage.clear();
+  } catch (error) {
+    console.log(error)
+  }
 }

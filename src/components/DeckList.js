@@ -1,35 +1,50 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native'
-import { getInitialData } from '../utils/api'
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native'
+import { connect } from 'react-redux'
 import { indigo1, white } from '../utils/colors'
+import { getDecks, removeAllData } from '../utils/api'
+import { receiveDecks } from '../store/actions'
+
 
 class DeckList extends React.Component {
-  render() {
-    const decks = getInitialData()
+  
+  componentDidMount () {
+    getDecks()
+      .then(decks => this.props.receiveAllDecks(decks))
+      .catch(e => console.log('error on didmount: ',e))
+  }
 
-      return (
+  // Just for tests
+  resetAll = () => {
+    alert('You reset all')
+    removeAllData()
+  }
+
+  render() {
+    const { decks } = this.props
+    // console.log(this.props)
+    return (
       <View style={styles.container}>
-        {Object.keys(decks).map(deckId => {
+        {decks && Object.keys(decks).map(deckId => {
           const { title, questions  } = decks[deckId]
           return (
             <View style={styles.deckItem} key={deckId}>
               <Text style={styles.deckTitle}>{title}</Text>
-              <Text>{questions.length} Questions</Text>
+              {/* <Text>{questions.length} Questions</Text> */}
 
               <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate(
                 'DeckPage',
-                { entryId: deckId }
+                { deckId: deckId }
               )}>
                 <Text style={styles.btnText}>Open Deck</Text>
               </TouchableOpacity>
             </View>
           )
         })}
+
+        {/* Dead Button just for tests
+        <Button style={styles.deadBtn} title='reset all data' onPress={()=>this.resetAll()}/> */}
+        
       </View>
     )
   }
@@ -64,7 +79,19 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: white
-  }
+  },
 })
 
-export default DeckList
+function mapDispatchToProps (dispatch) {
+  return {
+    receiveAllDecks: (decks) => dispatch(receiveDecks(decks))
+  }
+}
+
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
