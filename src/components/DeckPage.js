@@ -1,17 +1,20 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { getInitialData } from '../utils/api'
+import { connect } from 'react-redux'
 
-export default class DeckPage extends React.Component {
+class DeckPage extends React.Component {
   render () {
-    const deck = this.props.navigation.state.params.deckId
-    const decks = getInitialData()
+    const { deck } = this.props
 
-    console.log('deckId: ',deck)
+    console.log('The props of DeckPage Component:')
+    console.log(this.props)
+
     return (
       <View style={Styles.container}>
-        <Text>{decks[deck].title}</Text>
-        <Text>{decks[deck].questions.length}</Text>
+
+
+        <Text>{deck.title}</Text>
+        <Text>{deck.questions.length}</Text>
       </View>
     )
   }
@@ -24,3 +27,11 @@ const Styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+function mapStateToProps (decks, { navigation }) {
+  return {
+    deck: decks[navigation.state.params.deckId]
+  }
+}
+
+export default connect(mapStateToProps)(DeckPage)

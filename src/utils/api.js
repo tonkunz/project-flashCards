@@ -70,24 +70,27 @@ export function getDecks (deck) {
 }
 
 export function saveDeckTitle (title) {
-  return AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify({
+  return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY, JSON.stringify({
     [title]: {
-      title,
+      title: title,
+      questions: []
     }
   }))
 }
 
+
+
+// Remove all data, just for tests
 export function removeAllData (){
   AsyncStorage.clear(FLASHCARD_STORAGE_KEY, (err) => {
-    console.log('Error on delete')
+    console.log('Error on delete', err)
   })
-}
 
-// Reset all data, just for tests
-export async function clearStorage() {
-  try {
-    await AsyncStorage.clear();
-  } catch (error) {
-    console.log(error)
-  }
+  // export async function clearStorage() {
+  //   try {
+  //     await AsyncStorage.clear();
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 }

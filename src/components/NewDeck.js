@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  KeyboardAvoidingView,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Text, StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native'
 import { indigo1, indigo2, indigo3, white } from '../utils/colors'
 import { connect } from 'react-redux'
 import { saveDeckTitle } from '../utils/api'
@@ -17,37 +10,21 @@ class NewDeck extends React.Component {
     title: ''
   }
 
-  onChange = (title) => {
+  onChange = (title) => (
     this.setState({ title })
-  }
+  )
 
   onSubmit = () => {
     const { title } = this.state
-    console.log('On Submit in NewDeck Component:')
-    console.log(title)
+    const { dispatch } = this.props
 
-    // Saving on Redux Store
-    this.props.dispatch(addDeck({
-      [title]: {
-        title: [title],
-        questions: []
-      }
-    }))
-
-    console.log('Object in dispatch')
-    console.log({
-      [title]: {
-        title,
-        questions: []
-      }
+    saveDeckTitle(title)
+    dispatch(addDeck(title))
+    this.props.navigation.navigate('DeckPage', {
+      deckId: title
     })
 
-    // Save on DB
-    saveDeckTitle(title)
-
     this.setState({title: ''})
-
-    // Route to Especif Deck View
   }
 
   render () {
@@ -58,7 +35,6 @@ class NewDeck extends React.Component {
         <View>
           <Text style={styles.mainTitle}>NEW DECK</Text>
         </View>
-        <Text>{title}</Text>
         <TextInput
           style={styles.input}
           onChangeText={title => this.onChange(title)}
@@ -67,7 +43,6 @@ class NewDeck extends React.Component {
         </TextInput>
         <TouchableOpacity
           style={styles.btn}
-          title='Submit a new deck'
           onPress={this.onSubmit}
         >
           <Text style={styles.btnText}>
@@ -83,20 +58,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 25
+    alignItems: 'center'
   },
   mainTitle: {
     color: indigo2,
-    fontSize: 25,
+    fontSize: 27,
   },
   input: {
     width: 200,
-    height: 44,
+    height: 50,
     padding: 8,
     borderWidth: 1,
     borderColor: indigo3,
-    margin: 10
+    margin: 10,
+    borderRadius: 5
   },
   btn: {
     backgroundColor: indigo1,

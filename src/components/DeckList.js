@@ -30,7 +30,7 @@ class DeckList extends React.Component {
           return (
             <View style={styles.deckItem} key={deckId}>
               <Text style={styles.deckTitle}>{title}</Text>
-              {/* <Text>{questions.length} Questions</Text> */}
+              <Text>{questions.length} Questions</Text>
 
               <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate(
                 'DeckPage',
@@ -42,9 +42,9 @@ class DeckList extends React.Component {
           )
         })}
 
-        {/* Dead Button just for tests
-        <Button style={styles.deadBtn} title='reset all data' onPress={()=>this.resetAll()}/> */}
-        
+        {/* Dead Button just for tests */}
+        <Button style={styles.deadBtn} title='reset all data' onPress={()=>this.resetAll()}/>
+
       </View>
     )
   }
