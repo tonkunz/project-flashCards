@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     height: 45,
     margin: 3,
-    width: 150
+    width: 150,
   },
   btnText: {
     fontSize: 17,

@@ -9,32 +9,79 @@ import { connect } from 'react-redux'
 class QuizPage extends React.Component {
   state = {
     questionIndex: 0,
+    showAnswer: false,
+    correct: 0,
+    incorrect: 0
+  }
+
+  handleSubmit = (answer) => {
+    const { questionIndex } = this.state
+    const { questions } = this.props
+    const correct = questions[questionIndex].correctAnswer
+
+    if (answer === correct) {
+      this.setState(current => ({
+        correct: current.correct+1
+      }))
+    } else {
+      this.setState(current => ({
+        incorrect: current.incorrect+1
+      }))
+    }
+
+    this.setState(current => ({
+      questionIndex: current.questionIndex+1,
+      showAnswer: false,
+    }))
+
+
+
   }
 
   render () {
     const { questions, deckId } = this.props
-    const { questionIndex } = this.state
+    const { questionIndex, showAnswer, correct, incorrect } = this.state
 
+    if (questions.length === questionIndex) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.card}>
+            {correct > incorrect
+              ? <Text style={{fontSize: 75}}>:smile:</Text>
+              : <Text style={{fontSize: 75}}>:cryEmoji:</Text>
+            }
+            <Text style={[styles.answer, {fontSize: 25}]}>You got {correct} out of {questions.length}!</Text>
+            <TextButton value={'Once more'} style={{margin: 5, backgroundColor: green}} />
+            <TextButton value={'Other decks!'} style={{margin: 5, backgroundColor: red}} />
+          </View>
+        </View>
+      )
+    }
     return (
       <View style={styles.container}>
         <View style={styles.card}>
           <Text style={styles.questions}>{deckId} questions {questionIndex+1}/{questions.length}</Text>
-          <View>
-            <Text style={styles.answer}>{questions[questionIndex].question}</Text>
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            {showAnswer
+              ? <Text style={styles.answer}>{questions[questionIndex].answer}</Text>
+              : <Text style={styles.answer}>{questions[questionIndex].question}</Text>
+            }
+            
+            <Text></Text>
             <ShowAnswer
               style={styles.answer}
-              value={'Show Answer'}
-              onClick={() => alert('Show Answer')}
+              value={showAnswer ? 'Hide Answer' : 'Show Answer'}
+              onClick={() => this.setState((current)=>({showAnswer: !current.showAnswer}))}
             />
             <TextButton
               style={{margin: 5, backgroundColor: green}}
               value='Correct'
-              onPress={()=>alert('Pressed Correct')}
+              onPress={()=>this.handleSubmit(true)}
             />
             <TextButton
               style={{margin: 5, backgroundColor: red}}
               value='Incorrect'
-              onPress={()=>alert('Pressed Incorrect')}
+              onPress={()=>this.handleSubmit(false)}
             />
           </View>
         </View>
@@ -50,19 +97,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: white,
     padding: 20
-  },
-  questions: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    margin: 10,
-    fontSize: 13,
-    color: white,
-  },
-  answer: {
-    fontSize: 20,
-    color: white,
-    margin: 25,
   },
   card: {
     flex: 1,
@@ -80,13 +114,27 @@ const styles = StyleSheet.create({
       height: 3,
     },
   },
+  questions: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    margin: 10,
+    fontSize: 20,
+    color: white,
+  },
+  answer: {
+    fontSize: 40,
+    color: white,
+    margin: 25,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   cardText: {
     fontSize: 30,
     color: white,
     marginTop: 35,
     textAlign: 'center',
-
-  }
+  },
 })
 
 function mapStateToProps (decks, { navigation }) {

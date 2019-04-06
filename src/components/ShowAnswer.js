@@ -1,7 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { NavigationActions } from 'react-navigation'
-
+import {  Text, TouchableOpacity } from 'react-native'
 export default function ShowAnswer ({style, value, onClick}) {
   return (
     <TouchableOpacity
