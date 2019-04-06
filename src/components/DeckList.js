@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Button, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import { indigo1, indigo2, indigo3, white, yellow } from '../utils/colors'
+import { indigo1, indigo2, green, white, yellow } from '../utils/colors'
 import { getDecks, removeAllData } from '../utils/api'
 import { receiveDecks } from '../store/actions'
 
@@ -20,17 +20,30 @@ class DeckList extends React.Component {
     removeAllData()
   }
 
+  handleCardLength=(length)=> {
+    if(length === 0){
+      return 'No cards created'
+    } else if (length === 1){
+      return '1 Card'
+    } else {
+      return `${length} Cards`
+    }
+  }
+
   render() {
     const { decks } = this.props
     // console.log(this.props)
     return (
-      <View style={styles.container}>
+      <ScrollView>
+        <View style={styles.container}>
         {decks && Object.keys(decks).map(deckId => {
           const { title, questions  } = decks[deckId]
           return (
             <View style={styles.deckCard} key={deckId}>
               <Text style={styles.deckTitle}>{title}</Text>
-              <Text style={styles.deckSubTitle}>{questions.length} Questions</Text>
+              <Text style={styles.deckSubTitle}>{
+                this.handleCardLength(questions.length)
+              }</Text>
 
               <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate(
                 'DeckPage',
@@ -43,9 +56,9 @@ class DeckList extends React.Component {
         })}
 
         {/* Dead Button just for tests */}
-        <Button style={styles.deadBtn} title='reset all data' onPress={()=>this.resetAll()}/>
-
-      </View>
+        {/* <Button style={styles.deadBtn} title='reset all data' onPress={()=>this.resetAll()}/> */}
+        </View>
+      </ScrollView>
     )
   }
 }
@@ -54,8 +67,8 @@ class DeckList extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   deckCard: {
     flex: 1,
@@ -65,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 8,
-    height:300,
+    height:250,
     width: 350,
     borderRadius: 3,
     shadowRadius: 10,
@@ -86,7 +99,7 @@ const styles = StyleSheet.create({
     color: white,
   },
   btn: {
-    backgroundColor: indigo3,
+    backgroundColor: green,
     padding: 10,
     paddingLeft: 50,
     paddingRight: 50,
