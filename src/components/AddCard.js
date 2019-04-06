@@ -13,13 +13,24 @@ class AddCard extends React.Component {
     correctAnswer: '',
   }
 
-  handleChange = (e) => (
-    this.setState({
-      [e.target.id]: e.target.value
-    })
-  )
   handleSubmit = () => {
-    alert('submitou card!')
+    const { dispatch } = this.props
+    const { question, answer, correctAnswer } = this.state
+    const { title } = this.props.deck
+
+    dispatch(addCard({ title, question, answer, correctAnswer}))
+    addCardToDeck(title, { question, answer, correctAnswer })
+
+    this.setState({
+      question: '',
+      answer: '',
+      correctAnswer: '',
+    })
+
+    // todo: go To DeckPage
+    this.props.navigation.dispatch(NavigationActions.back({
+      key: null
+    }))
   }
 
   render () {
@@ -28,30 +39,32 @@ class AddCard extends React.Component {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View >
-          <Text style={styles.text}>New Card name: </Text>
+          <Text>{deck}</Text>
+
+          <Text style={styles.text}>Insert the question: </Text>
           <TextInput
             style={styles.input}
-            onChangeText={this.handleChange}
+            onChangeText={question => this.setState({question})}
             value={this.state.question}
           />
 
-          <Text style={styles.text}>Question: </Text>
+          <Text style={styles.text}>Insert de propose Answer: </Text>
           <TextInput
             style={styles.input}
-            onChangeText={this.handleChange}
+            onChangeText={answer => this.setState({answer})}
             value={this.state.answer}
           />
 
-          <Text style={styles.text}>Correct Answer: </Text>
+          <Text style={styles.text}>Insert a Correct Answer (true or false):</Text>
           <TextInput
             style={styles.input}
-            onChangeText={this.handleChange}
+            onChangeText={correctAnswer => this.setState({correctAnswer})}
             value={this.state.correctAnswer}
           />
 
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => this.handleSubmit(deck)}
+            onPress={()=>this.handleSubmit()}
           >
             <Text style={styles.btnText}>Submit a new Card!</Text>
           </TouchableOpacity>
@@ -68,14 +81,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    fontSize: 30,
+    fontSize: 25,
     color: indigo3
   },
   btn: {
     backgroundColor: indigo1,
     padding: 10,
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 40,
+    paddingRight: 40,
     marginTop: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -87,7 +100,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   input: {
-    width: 200,
+    width: 150,
     height: 50,
     padding: 8,
     borderWidth: 1,
@@ -97,4 +110,10 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AddCard
+function mapStateToProps (decks, { navigation }) {
+  return {
+    deck: decks[navigation.state.params.deckId]
+  }
+}
+
+export default connect(mapStateToProps)(AddCard)

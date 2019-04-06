@@ -19,8 +19,8 @@ class DeckPage extends React.Component {
   render () {
     const { deck } = this.props
 
-    console.log('The props of DeckPage Component:')
-    console.log(this.props)
+    // console.log('The props of DeckPage Component:')
+    // console.log(this.props)
 
     return (
       <View style={Styles.container}>

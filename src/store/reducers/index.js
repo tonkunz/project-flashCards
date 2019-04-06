@@ -23,15 +23,17 @@ function decks (state = {}, action) {
         ...newDeck
       }
     case ADD_CARD:
-      const { deck, answer, correctAnswer, question } = action.card
+      const { title, answer, correctAnswer, question } = action.card
+
+      // console.log('DEBBUG HERE: ')
+      // console.log('Card value on reducer: ', action.card)
+      // console.log('Key Value on ADD_CARD Reducer: ', title)
+
       return {
         ...state,
-        [deck]: {
-          ...state[deck],
-          questions: [
-            ...state[deck].questions,
-              {question, answer, correctAnswer}
-          ]
+        [title]: {
+          ...state[title],
+          questions: [...state[title].questions, { question, answer, correctAnswer }]
         }
       }
     default:
