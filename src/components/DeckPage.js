@@ -48,15 +48,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: white,
+    padding: 20
   },
   deck: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: indigo2,
     alignSelf: 'stretch',
+    alignItems: 'center',
+    backgroundColor: indigo2,
+    padding: 10,
+    borderRadius: 5,
+    shadowRadius: 10,
+    shadowOpacity: 1,
+    shadowColor: 'rgba(0,0,0,0.40)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
   },
   deckTitle: {
     fontSize: 60,

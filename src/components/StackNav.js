@@ -6,6 +6,7 @@ import { indigo2, white } from '../utils/colors'
 import TabNav from './TabNav'
 import DeckPage from './DeckPage'
 import AddCard from './AddCard'
+import QuizPage from './QuizPage'
 
 const router = {
   Home: {
@@ -33,7 +34,17 @@ const router = {
         backgroundColor: indigo2
       }
     }
-  }
+  },
+  QuizPage: {
+    screen: QuizPage,
+    navigationOptions: {
+      title: 'Question Page',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: indigo2
+      }
+    }
+  }, 
 }
 
 const StackNav = createStackNavigator(router)
