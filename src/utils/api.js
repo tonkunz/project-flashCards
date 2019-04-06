@@ -78,7 +78,15 @@ export function saveDeckTitle (title) {
   }))
 }
 
-
+export function addCardToDeck (title, card) {
+  return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
+    .then(res => JSON.parse(res))
+    .then(data => {
+      data[title].questions.push(card)
+      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(data))
+        return data
+    })
+}
 
 // Remove all data, just for tests
 export function removeAllData (){

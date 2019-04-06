@@ -5,6 +5,7 @@ import {
 import { indigo2, white } from '../utils/colors'
 import TabNav from './TabNav'
 import DeckPage from './DeckPage'
+import AddCard from './AddCard'
 
 const router = {
   Home: {
@@ -17,6 +18,16 @@ const router = {
     screen: DeckPage,
     navigationOptions: {
       title: 'Single Deck Info',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: indigo2
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: 'Adding a New Card!',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: indigo2

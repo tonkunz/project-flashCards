@@ -39,8 +39,7 @@ class NewDeck extends React.Component {
           style={styles.input}
           onChangeText={title => this.onChange(title)}
           value={title}
-        >
-        </TextInput>
+        />
         <TouchableOpacity
           style={styles.btn}
           onPress={this.onSubmit}
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     color: indigo2,
-    fontSize: 27,
+    fontSize: 30,
   },
   input: {
     width: 200,

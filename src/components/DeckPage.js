@@ -6,12 +6,10 @@ import { white, indigo3, green } from '../utils/colors'
 
 class DeckPage extends React.Component {
 
-  handleNavigateToCardPage = (title) => {
+  handleNavigateToCardPage = (title) => (
     this.props.navigation.navigate('AddCard', {
       deckId: title
-    })
-    alert('card page!') //Just for test
-}
+    }))
 
   handleNavigateToQuizPage = (title) => (
     this.props.navigation.navigate('QuizPage', {
