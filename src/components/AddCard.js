@@ -18,19 +18,22 @@ class AddCard extends React.Component {
     const { question, answer, correctAnswer } = this.state
     const { title } = this.props.deck
 
-    dispatch(addCard({ title, question, answer, correctAnswer}))
-    addCardToDeck(title, { question, answer, correctAnswer })
+    if (question && answer) {
+      dispatch(addCard({ title, question, answer, correctAnswer}))
+      addCardToDeck(title, { question, answer, correctAnswer })
+      this.setState({
+        question: '',
+        answer: '',
+        correctAnswer: '',
+      })
 
-    this.setState({
-      question: '',
-      answer: '',
-      correctAnswer: '',
-    })
-
-    // todo: go To DeckPage
-    this.props.navigation.dispatch(NavigationActions.back({
-      key: null
-    }))
+      // todo: go To DeckPage
+      this.props.navigation.dispatch(NavigationActions.back({
+        key: null
+      }))
+    } else {
+      alert('You have empty fields!')
+    }
   }
 
   render () {

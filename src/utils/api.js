@@ -17,12 +17,17 @@ const defaultData = {
       {
         question: 'React is a UI JavaScript Library?',
         answer: 'Yes, React use functions to return UI',
-        correctAnswer: true
+        correctAnswer: 'true'
       },
       {
         question: 'React.js was developed by Google',
         answer: 'Yes, the google keeps this library!',
-        correctAnswer: false
+        correctAnswer: 'false'
+      },
+      {
+        question: 'React.js can use JSX',
+        answer: 'Yes, react support this lib',
+        correctAnswer: 'true'
       }
     ]
   },
@@ -32,12 +37,12 @@ const defaultData = {
       {
         question: 'Redux management the application state?',
         answer: 'Yes, he does it.',
-        correctAnswer: true
+        correctAnswer: 'true'
       },
       {
         question: 'Redux does not allow asynchronous requests?',
         answer: 'Yes, does not allow this.',
-        correctAnswer: false
+        correctAnswer: 'false'
       }
     ]
   },
@@ -47,7 +52,7 @@ const defaultData = {
       {
         question: 'Udacity is the best place to learn React-native?',
         answer: 'Yes',
-        correctAnswer: true
+        correctAnswer: 'true'
       },
     ]
   }

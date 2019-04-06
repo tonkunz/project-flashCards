@@ -33,10 +33,22 @@ class QuizPage extends React.Component {
       questionIndex: current.questionIndex+1,
       showAnswer: false,
     }))
-
-
-
   }
+
+  handleReplay = () => (
+    this.setState({
+      questionIndex: 0,
+      showAnswer: false,
+      correct: 0,
+      incorrect: 0
+    })
+  )
+
+  handleGoToDeck = () => (
+    this.props.navigation.dispatch(NavigationActions.back({
+      key: null,
+    }))
+  )
 
   render () {
     const { questions, deckId } = this.props
@@ -51,8 +63,16 @@ class QuizPage extends React.Component {
               : <Text style={{fontSize: 75}}>:cryEmoji:</Text>
             }
             <Text style={[styles.answer, {fontSize: 25}]}>You got {correct} out of {questions.length}!</Text>
-            <TextButton value={'Once more'} style={{margin: 5, backgroundColor: green}} />
-            <TextButton value={'Other decks!'} style={{margin: 5, backgroundColor: red}} />
+            <TextButton
+              value={'Once more'}
+              style={{margin: 5, backgroundColor: green}}
+              onPress={this.handleReplay}
+            />
+            <TextButton
+              value={'Other decks!'}
+              style={{margin: 5, backgroundColor: red}}
+              onPress={this.handleGoToDeck}
+            />
           </View>
         </View>
       )
@@ -76,12 +96,12 @@ class QuizPage extends React.Component {
             <TextButton
               style={{margin: 5, backgroundColor: green}}
               value='Correct'
-              onPress={()=>this.handleSubmit(true)}
+              onPress={()=>this.handleSubmit('true')}
             />
             <TextButton
               style={{margin: 5, backgroundColor: red}}
               value='Incorrect'
-              onPress={()=>this.handleSubmit(false)}
+              onPress={()=>this.handleSubmit('false')}
             />
           </View>
         </View>

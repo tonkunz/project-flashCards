@@ -18,13 +18,17 @@ class NewDeck extends React.Component {
     const { title } = this.state
     const { dispatch } = this.props
 
-    saveDeckTitle(title)
-    dispatch(addDeck(title))
-    this.props.navigation.navigate('DeckPage', {
-      deckId: title
-    })
+    if (title) {
+      saveDeckTitle(title)
+      dispatch(addDeck(title))
+      this.props.navigation.navigate('DeckPage', {
+        deckId: title
+      })
+      this.setState({title: ''})
+    } else {
+      alert('You not entry a Deck name!')
+    }
 
-    this.setState({title: ''})
   }
 
   render () {
