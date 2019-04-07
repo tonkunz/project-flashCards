@@ -2,12 +2,12 @@ import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 // Utils
-import { indigo3, white } from '../utils/colors'
+import { white } from '../utils/colors'
 
-export default function TextButton ({ value, onPress, style = {} }) {
+export default function TextButton ({ value, onPress, style = {}, textStyle={} }) {
   return (
     <TouchableOpacity style={[styles.btn, style]} onPress={onPress}>
-      <Text style={styles.btnText}>{value}</Text>
+      <Text style={[styles.btnText, textStyle]}>{value}</Text>
     </TouchableOpacity>
   )
 }

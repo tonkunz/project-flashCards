@@ -5,7 +5,6 @@ import { indigo1, indigo2, green, white, yellow } from '../utils/colors'
 import { getDecks, removeAllData } from '../utils/api'
 import { receiveDecks } from '../store/actions'
 
-
 class DeckList extends React.Component {
   
   componentDidMount () {
@@ -43,8 +42,7 @@ class DeckList extends React.Component {
               <Text style={styles.deckTitle}>{title}</Text>
               <Text style={styles.deckSubTitle}>{
                 this.handleCardLength(questions.length)
-              }</Text>
-
+              }</Text>              
               <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate(
                 'DeckPage',
                 { deckId: deckId }

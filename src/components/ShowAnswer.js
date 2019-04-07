@@ -1,10 +1,10 @@
 import React from 'react'
-import {  Text, TouchableOpacity } from 'react-native'
-export default function ShowAnswer ({style, value, onClick}) {
+import {  Text, TouchableOpacity, StyleSheet } from 'react-native'
+export default function ShowAnswer ({style = {}, value, onPress }) {
   return (
     <TouchableOpacity
       style={style}
-      onPress={() => onClick()}
+      onPress={() => onPress()}
     >
       <Text>{value}</Text>
     </TouchableOpacity>

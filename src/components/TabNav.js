@@ -1,6 +1,7 @@
 import {
   createAppContainer,
-  createMaterialTopTabNavigator
+  createMaterialTopTabNavigator,
+  View
 } from 'react-navigation'
 import { indigo2, white } from '../utils/colors'
 import NewDeck from './NewDeck'
@@ -12,14 +13,14 @@ const router = {
     screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      // tabBarIcon: <MaterialCommunityIcons name="cards" size={30} color={tintColor} />,
+      tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="cards" size={30} color={tintColor} />
     },
   },
   NewDeck: {
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'Add Deck',
-      // tabBarIcon: <FontAwesome name="plus-square" size={30} color={tintColor} />,
+      tabBarIcon: ({ tintColor }) => <FontAwesome name="plus-square" size={30} color={tintColor} />,
     },
   },
 }

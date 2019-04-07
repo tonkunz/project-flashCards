@@ -1,10 +1,17 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated, Image } from 'react-native'
 import TextButton from './TextButton'
 import { connect } from 'react-redux'
 import { white, indigo2, pink, green } from '../utils/colors'
 
 class DeckPage extends React.Component {
+  state = {
+    bounceValue: new Animated.Value(1)
+  }
+
+  componentDidMount () {
+    this.handleBounceAnimation()
+  }
 
   handleNavigateToCardPage = (title) => (
     this.props.navigation.navigate('AddCard', {
@@ -16,8 +23,17 @@ class DeckPage extends React.Component {
       deckId: title
     }))
 
+  handleBounceAnimation = () => {
+    const { bounceValue } = this.state
+    Animated.sequence([
+      Animated.timing(bounceValue, { duration: 200, toValue: 1.04}),
+      Animated.spring(bounceValue, { toValue: 1, friction: 4})
+    ]).start()
+  }
+
   render () {
     const { deck } = this.props
+    const { bounceValue } = this.state
 
     // console.log('The props of DeckPage Component:')
     // console.log(this.props)
@@ -25,7 +41,11 @@ class DeckPage extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.deck}>
-          <Text style={styles.deckTitle}>{deck.title}</Text>
+
+          <Animated.Text
+            style={[styles.deckTitle, {transform: [{scale: bounceValue}]}]}>
+            {deck.title}
+          </Animated.Text>
           <Text style={styles.deckSubTitle}>Questions: {deck.questions.length}</Text>
 
           <TextButton

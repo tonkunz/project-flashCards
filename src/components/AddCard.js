@@ -27,7 +27,6 @@ class AddCard extends React.Component {
         correctAnswer: '',
       })
 
-      // todo: go To DeckPage
       this.props.navigation.dispatch(NavigationActions.back({
         key: null
       }))
